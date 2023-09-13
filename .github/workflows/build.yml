@@ -1,4 +1,5 @@
 name: Build Jar!
+
 on:
   push:
     branches: [ "main" ]
@@ -16,7 +17,7 @@ jobs:
         java-version: '8'
     - name: Build
       run: ./build.sh
-    - uses: EndBug/add-and-commit@v9
-    - name: Push
+    - name: Push Jar!
+      uses: EndBug/add-and-commit@v9
       with:
         default_author: github_actions
