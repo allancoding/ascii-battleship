@@ -1,5 +1,4 @@
 name: Build Jar!
-
 on:
   push:
     branches: [ "main" ]
