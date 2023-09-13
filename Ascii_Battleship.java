@@ -76,6 +76,7 @@ public class Ascii_Battleship {
     private double shipsSunkWeight = 0.7;
 
     public Ascii_Battleship(boolean instructions) {
+        System.setProperty("file.encoding", "UTF-8");
         if(instructions == true){
             printInstructions();
         }
