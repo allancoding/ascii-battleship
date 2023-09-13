@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>console</headerType>
+  <jar>C:\Users\student\Downloads\Ascii_Battleship.jar</jar>
+  <outfile>C:\Users\student\Downloads\Ascii_Battleship.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl></downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>true</restartOnCrash>
+  <manifest></manifest>
+  <icon>C:\Users\student\Downloads\icon.ico</icon>
+  <jre>
+    <path>%JAVA_HOME%;%PATH%</path>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion></minVersion>
+    <maxVersion></maxVersion>
+  </jre>
+  <versionInfo>
+    <fileVersion>1.0.0.0</fileVersion>
+    <txtFileVersion>v1.0</txtFileVersion>
+    <fileDescription>A ascii battleship game built in Java that can be played in the terminal.</fileDescription>
+    <copyright>Allancoding (c) 2023</copyright>
+    <productVersion>1.0.0.0</productVersion>
+    <txtProductVersion>v1.0</txtProductVersion>
+    <productName>ascii-battleship</productName>
+    <companyName>allancoding</companyName>
+    <internalName>Ascii_Battleship</internalName>
+    <originalFilename>Ascii_Battleship.exe</originalFilename>
+    <trademarks></trademarks>
+    <language>ENGLISH_US</language>
+  </versionInfo>
+</launch4jConfig>
