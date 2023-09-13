@@ -21,4 +21,7 @@ jobs:
     - name: Push Jar!
       uses: EndBug/add-and-commit@v9
       with:
-        default_author: github_actions
+        author_name: Allan Niles
+        author_email: allancoding.dev@gmail.com
+        default_author: user_info -> Allan Niles <allancoding.dev@gmail.com>
+
