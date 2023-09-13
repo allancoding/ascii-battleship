@@ -23,5 +23,4 @@ jobs:
       with:
         author_name: Allan Niles
         author_email: allancoding.dev@gmail.com
-        default_author: user_info -> Allan Niles <allancoding.dev@gmail.com>
 
