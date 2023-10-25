@@ -1,0 +1,67 @@
+name: Build!
+on:
+  push:
+    tags:
+      - v*
+jobs: 
+  build:
+    name: Build Jar!
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 8
+      uses: actions/setup-java@v3
+      with:
+        java-version: '8'
+        distribution: 'zulu'
+    - name: Build
+      run: ./build.sh
+    - name: Push Jar!
+      uses: EndBug/add-and-commit@v9
+      with:
+        author_name: Allan Niles
+        author_email: allancoding.dev@gmail.com
+  aur:
+     needs: build
+     name: Build AUR package
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout code
+         uses: actions/checkout@v3
+       - name: Extract tag version without v
+         id: extract_version
+         run: echo "::set-output name=version::$(echo ${GITHUB_REF#refs/tags/} | sed 's/^v//')"
+       - name: Setup SSH key
+         run: |
+           mkdir -p ~/.ssh
+           echo "${{ secrets.AUR_SSH_PRIVATE_KEY }}" > ~/.ssh/aur
+           chmod 600 ~/.ssh/aur
+           ssh-keyscan aur.archlinux.org >> ~/.ssh/known_hosts
+           echo -e "Host aur.archlinux.org\n\tIdentityFile ~/.ssh/aur\n\tUser aur" > ~/.ssh/config            
+       - name: Pull changes from AUR
+         run: |
+          sed -i "s/pkgver=.*/pkgver=${{ steps.extract_version.outputs.version }}/" PKGBUILD
+          git clone aur@aur.archlinux.org:ascii-battleship.git
+          cp -u ./README.md kill-net/README.md
+          cp -u ./LICENSE kill-net/LICENSE
+          cp -u ./PKGBUILD kill-net/PKGBUILD
+          cd ascii-battleship
+          git config --global user.email "${{ secrets.GIT_EMAIL }}"
+          git config --global user.name "${{ secrets.GIT_USERNAME }}"
+          sed -i "s/pkgver=.*/pkgver=${{ steps.extract_version.outputs.version }}/" PKGBUILD
+          cat PKGBUILD
+       - name: Validate package
+         uses: hapakaien/archlinux-package-action@v2
+         with:
+           path: ascii-battleship
+           flags: ''
+           namcap: false
+           srcinfo: true
+           updpkgsums: true
+       - name: Push to AUR
+         run: |
+           cd ascii-battleship
+           cat PKGBUILD
+           git add .
+           git commit -m "update to ${{ steps.extract_version.outputs.version }}"
+           git push
