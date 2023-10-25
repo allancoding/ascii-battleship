@@ -43,9 +43,9 @@ jobs:
          run: |
           sed -i "s/pkgver=.*/pkgver=${{ steps.extract_version.outputs.version }}/" PKGBUILD
           git clone aur@aur.archlinux.org:ascii-battleship.git
-          cp -u ./README.md kill-net/README.md
-          cp -u ./LICENSE kill-net/LICENSE
-          cp -u ./PKGBUILD kill-net/PKGBUILD
+          cp -u ./README.md ascii-battleship/README.md
+          cp -u ./LICENSE ascii-battleship/LICENSE
+          cp -u ./PKGBUILD ascii-battleship/PKGBUILD
           cd ascii-battleship
           git config --global user.email "${{ secrets.GIT_EMAIL }}"
           git config --global user.name "${{ secrets.GIT_USERNAME }}"
