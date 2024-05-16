@@ -30,6 +30,7 @@ public class Ascii_Battleship {
     public static void main(String[] args) {
         AnsiConsole.systemInstall();
         Game.start(true, true);
+        //Game.printBoard(1, false);
     }
 
     public static class Game {
@@ -277,7 +278,7 @@ public class Ascii_Battleship {
         }
     
         public static void cpuhit() {
-            printBoard("human");
+            printBoard(0);
             ascii.println(ascii.color.ANSI_BLACK +  ascii.color.ANSI_PURPLE_BACKGROUND + "The computer is thinking..." + ascii.color.ANSI_RESET + " ");
             try {
                 Thread.sleep((int) (Math.random() * 1500) + 500);
@@ -367,7 +368,7 @@ public class Ascii_Battleship {
                 allhumanshipshavebeensunk = true;
                 type = 8;
             }
-            printBoard("human");
+            printBoard(0);
             String cpucore = letters[typecol] + (typerow + 1);
             if (type == 1) {
                 ascii.println(ascii.color.ANSI_BLACK + ascii.color.ANSI_GREEN_BACKGROUND + "The computer missed at " + cpucore + "!" + ascii.color.ANSI_RESET + " ");
@@ -408,7 +409,7 @@ public class Ascii_Battleship {
         }
     
         public static void humanhit(String error) {
-            printBoard("cpu", true);
+            printBoard(1, true);
             ascii.println(ascii.color.ANSI_BLACK +  ascii.color.ANSI_PURPLE_BACKGROUND + "Where do you want to hit?" + ascii.color.ANSI_RESET + " ");
             ascii.println(ascii.color.ANSI_BLACK + ascii.color.ANSI_GREEN_BACKGROUND + "Enter the coordinate you want to hit (ex. A1):" + ascii.color.ANSI_RESET
                     + " ");
@@ -499,7 +500,7 @@ public class Ascii_Battleship {
                 allcpushipshavebeensunk = true;
                 type = 8;
             }
-            printBoard("cpu", true);
+            printBoard(1, true);
             String humancore = letters[col] + (row + 1);
             if (type == 1) {
                 ascii.println(ascii.color.ANSI_BLACK + ascii.color.ANSI_RED_BACKGROUND + "You missed at " + humancore + "!" + ascii.color.ANSI_RESET + " ");
@@ -683,7 +684,7 @@ public class Ascii_Battleship {
             if (!allhumanshipsplaced) {
                 String start = "";
                 String dir = "";
-                printBoard("human");
+                printBoard(0);
                 ascii.printerror(error);
                 if (type == 9) {
                     continuePlacement = false;
@@ -696,7 +697,7 @@ public class Ascii_Battleship {
                         ascii.println("Enter the direction of the ship (ex. up, down, left, right):");
                         dir = System.console().readLine();
                         setships(start, dir, 5, type);
-                        printBoard("human");
+                        printBoard(0);
                         humansetships(6, "");
                     } else if (type == 6) {
                         ascii.println(ascii.color.ANSI_CYAN_BACKGROUND + ascii.color.ANSI_BLACK + "Battleship" + ascii.color.ANSI_RESET + " ");
@@ -705,7 +706,7 @@ public class Ascii_Battleship {
                         ascii.println("Enter the direction of the ship (ex. up, down, left, right):");
                         dir = System.console().readLine();
                         setships(start, dir, 4, type);
-                        printBoard("human");
+                        printBoard(0);
                         humansetships(7, "");
                     } else if (type == 7) {
                         ascii.println(ascii.color.ANSI_YELLOW_BACKGROUND + ascii.color.ANSI_BLACK + "Cruiser" + ascii.color.ANSI_RESET + " ");
@@ -714,7 +715,7 @@ public class Ascii_Battleship {
                         ascii.println("Enter the direction of the ship (ex. up, down, left, right):");
                         dir = System.console().readLine();
                         setships(start, dir, 3, type);
-                        printBoard("human");
+                        printBoard(0);
                         humansetships(8, "");
                     } else if (type == 8) {
                         ascii.println(ascii.color.ANSI_GREEN_BACKGROUND + ascii.color.ANSI_BLACK + "Submarine" + ascii.color.ANSI_RESET + " ");
@@ -723,7 +724,7 @@ public class Ascii_Battleship {
                         ascii.println("Enter the direction of the ship (ex. up, down, left, right):");
                         dir = System.console().readLine();
                         setships(start, dir, 3, type);
-                        printBoard("human");
+                        printBoard(0);
                         humansetships(9, "");
                     }
                 }
@@ -735,7 +736,7 @@ public class Ascii_Battleship {
                     ascii.println("Enter the direction of the ship (ex. up, down, left, right):");
                     dir = System.console().readLine();
                     setships(start, dir, 2, type);
-                    printBoard("human");
+                    printBoard(0);
                     allhumanshipsplaced = true;
                 }
             }
@@ -895,7 +896,7 @@ public class Ascii_Battleship {
             }
         }
     
-        public static void printBoardLine(int n, int type) {
+        public static void printBoardLine(int n, int type, int... sideB) {
             ascii.print(ascii.color.ANSI_BLACK);
             for (int i = 0; i < n; i++) {
                 if (type == 0) {
@@ -903,7 +904,9 @@ public class Ascii_Battleship {
                         ascii.print(ascii.table.topCornerLeft + "" + ascii.emDash + "" + ascii.emDash);
                     }
                     if (i == (n - 1)) {
-                        ascii.println(ascii.emDash + "" + ascii.emDash + "" + ascii.table.topCornerRight);
+                        ascii.print(ascii.emDash + "" + ascii.emDash + "" + ascii.table.topCornerRight);
+                        sideBoard(sideB[0], sideB[1]);
+                        ascii.println("");
                     } else {
                         ascii.print(ascii.emDash + "" + ascii.emDash + "" + ascii.table.topT + "" + ascii.emDash);
                     }
@@ -912,16 +915,20 @@ public class Ascii_Battleship {
                         ascii.print(ascii.table.leftT + "" + ascii.emDash + "" + ascii.emDash);
                     }
                     if (i == (n - 1)) {
-                        ascii.println(ascii.emDash + "" + ascii.emDash + "" + ascii.table.rightT);
+                        ascii.print(ascii.emDash + "" + ascii.emDash + "" + ascii.table.rightT);
+                        sideBoard(sideB[0], sideB[1]);
+                        ascii.println("");
                     } else {
-                        ascii.print(ascii.emDash + "" + ascii.emDash + "" + ascii.table.cross + "" + ascii.emDash);
+                        ascii.print(ascii.emDash + "" + ascii.emDash + "" + ascii.table.cross + "" + ascii.emDash);   
                     }
                 } else if (type == 2) {
                     if (i == 0) {
                         ascii.print(ascii.table.bottomCornerLeft + "" + ascii.emDash + "" + ascii.emDash);
                     }
                     if (i == (n - 1)) {
-                        ascii.println(ascii.emDash + "" + ascii.emDash + "" + ascii.table.bottomCornerRight);
+                        ascii.print(ascii.emDash + "" + ascii.emDash + "" + ascii.table.bottomCornerRight);
+                        sideBoard(sideB[0], sideB[1]);
+                        ascii.println("");
                     } else {
                         ascii.print(ascii.emDash + "" + ascii.emDash + "" + ascii.table.bottomT + "" + ascii.emDash);
                     }
@@ -936,7 +943,7 @@ public class Ascii_Battleship {
             }
         }
     
-        private static void printData(int row, int col, String player, boolean hidden) {
+        private static void printData(int row, int col, int player, boolean hidden) {
             if (row == 0) {
                 if (col == 0) {
                     ascii.print("  ");
@@ -956,9 +963,9 @@ public class Ascii_Battleship {
             }
         }
     
-        private static void printChar(int row, int col, String player, boolean hidden) {
+        private static void printChar(int row, int col, int player, boolean hidden) {
             int[][] arrays;
-            if (player == "human") {
+            if (player == 0) {
                 arrays = human;
             } else {
                 arrays = cpu;
@@ -1052,7 +1059,7 @@ public class Ascii_Battleship {
             ascii.print(shipout + ascii.color.ANSI_BLACK);
         }
     
-        private static void printBoard(String player, boolean... hidden) {
+        private static void printBoard(int player, boolean... hidden) {
             ascii.clear();
             boolean hide = false;
             for (boolean h : hidden) {
@@ -1061,15 +1068,15 @@ public class Ascii_Battleship {
                     break;
                 }
             }
-            if (player == "human") {
+            if (player == 0) {
                 ascii.println(ascii.color.ANSI_GREEN + "Your Board:" + ascii.color.ANSI_RESET);
-            } else if (player == "cpu") {
+            } else {
                 ascii.println(ascii.color.ANSI_RED + "Computer's Board:" + ascii.color.ANSI_RESET);
             }
             ascii.print(ascii.color.ANSI_BLUE_BACKGROUND);
             for (int i = 0; i < BOARD_SIZE; i++) {
                 if (i == 0) {
-                    printBoardLine(11, 0);
+                    printBoardLine(11, 0, new int[] { player, i });
                 }
                 for (int j = 0; j < BOARD_SIZE; j++) {
                     if (j == 0) {
@@ -1080,16 +1087,27 @@ public class Ascii_Battleship {
                     printData(i, j, player, hide);
                     if (j == (BOARD_SIZE - 1)) {
                         ascii.print(" " + ascii.table.side);
+                        sideBoard(player, i);
                     }
                 }
                 ascii.println("");
                 if (i == (BOARD_SIZE - 1)) {
-                    printBoardLine(11, 2);
+                    printBoardLine(11, 2, new int[] { player, i });
                 } else if (i < BOARD_SIZE) {
-                    printBoardLine(11, 1);
+                    printBoardLine(11, 1, new int[] { player, i });
                 }
             }
             ascii.print(ascii.color.ANSI_RESET);
+        }
+
+        private static void sideBoard(int player, int line) {
+            ascii.print(ascii.color.ANSI_RESET + "   ");
+            if (player == 0) {
+                ascii.print(ascii.color.ANSI_GREEN + "Y" + ascii.color.ANSI_RESET);
+            } else {
+                ascii.print(ascii.color.ANSI_RED + "C" + ascii.color.ANSI_RESET);
+            }
+            ascii.print(ascii.color.ANSI_BLACK + ascii.color.ANSI_BLUE_BACKGROUND);
         }
     
         private static void printcheatBoard(PrintWriter writer) {

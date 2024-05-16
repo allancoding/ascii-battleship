@@ -1,1 +1,1 @@
-Main-Class: Ascii_Battleship
+Main-Class: asciiBattleship.Ascii_Battleship
