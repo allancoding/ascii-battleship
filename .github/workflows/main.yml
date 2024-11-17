@@ -17,12 +17,11 @@ jobs:
         distribution: 'zulu'
     - name: Build
       run: ./build.sh
-    - name: Push Jar!
-      uses: EndBug/add-and-commit@v9
+    - name: Upload Jar
+      uses: actions/upload-artifact@v2
       with:
-        push: origin HEAD:main
-        author_name: Allan Niles
-        author_email: allancoding.dev@gmail.com
+        name: jar
+        path: Ascii_Battleship.jar
   aur:
      needs: build
      name: Build AUR package

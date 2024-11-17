@@ -45,6 +45,7 @@ public class Ascii_Battleship {
                     public void run() {
                         try {
                             Thread.sleep(200);
+                            ascii.println(" ");
                             ascii.println("Exiting Battleship...");
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -1101,13 +1102,13 @@ public class Ascii_Battleship {
         }
 
         private static void sideBoard(int player, int line) {
-            ascii.print(ascii.color.ANSI_RESET + "   ");
-            if (player == 0) {
-                ascii.print(ascii.color.ANSI_GREEN + "Y" + ascii.color.ANSI_RESET);
-            } else {
-                ascii.print(ascii.color.ANSI_RED + "C" + ascii.color.ANSI_RESET);
-            }
-            ascii.print(ascii.color.ANSI_BLACK + ascii.color.ANSI_BLUE_BACKGROUND);
+            // ascii.print(ascii.color.ANSI_RESET + "   ");
+            // if (player == 0) {
+            //     ascii.print(ascii.color.ANSI_GREEN + "Y" + ascii.color.ANSI_RESET);
+            // } else {
+            //     ascii.print(ascii.color.ANSI_RED + "C" + ascii.color.ANSI_RESET);
+            // }
+            // ascii.print(ascii.color.ANSI_BLACK + ascii.color.ANSI_BLUE_BACKGROUND);
         }
     
         private static void printcheatBoard(PrintWriter writer) {
